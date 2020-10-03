@@ -20,12 +20,15 @@ class MyDocument extends Document {
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"
           />
+
           <style jsx global>
             {`
+
+            
               html,
               body {
                 height: 100vh;
-                width: 100%;
+                width: 100vw;
               }
               *,
               *:after,
@@ -41,6 +44,10 @@ class MyDocument extends Document {
               html,body{
                 margin: 0;
                 padding:0;
+              }
+              .h{
+                font-family: 'Sansita Swashed', cursive;
+                text-align: center;
               }
             `}
           </style>
