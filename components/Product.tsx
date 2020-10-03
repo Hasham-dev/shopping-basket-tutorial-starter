@@ -2,23 +2,43 @@ import React from "react"
 import { Theme, makeStyles, createStyles } from "@material-ui/core/styles"
 import ButtonBase from "@material-ui/core/ButtonBase"
 import Typography from "@material-ui/core/Typography"
-
+import { useSelector } from 'react-redux';
 import { ProductItem } from "../global"
+import { store, add, remove } from '../store'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      display: "flex",
-      flexWrap: "wrap",
-      minWidth: 300,
-      width: "100%"
+      display: "grid",
+      gridTemplateColumns: "30% 30% 30%",
+      justifyContent: 'space-around',
+      Width: "600 !important",
+      width: "100%",
+      height: 600,
+      overflowY: "scroll",
+      overflowX: "hidden",
+      '&::-webkit-scrollbar': {
+        width: '0.4em'
+      },
+      '&::-webkit-scrollbar-track': {
+        boxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)',
+        webkitBoxShadow: 'inset 0 0 6px rgba(0,0,0,0.00)'
+      },
+      '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'lightGrey',
+        outline: '1px solid slategrey'
+      }
     },
     image: {
       position: "relative",
       height: 200,
-      [theme.breakpoints.down("xs")]: {
+      marginTop: 25,
+      borderRadius: "40%",
+      display: 'grid',
+      width: "100% !important",
+      [theme.breakpoints.down("md")]: {
         width: "100% !important", // Overrides inline-style
-        height: 100
+        height: 400
       },
       "&:hover, &$focusVisible": {
         zIndex: 1,
@@ -83,10 +103,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const Product = () => {
   const classes = useStyles({})
 
-  const products = [] // TODO
+  const products = useSelector((state: ProductItem[]) => state)
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       {products.map((product: ProductItem) => (
         <ButtonBase
           focusRipple
@@ -94,11 +114,12 @@ const Product = () => {
           className={classes.image}
           focusVisibleClassName={classes.focusVisible}
           disabled={product.added}
-          onClick={() => {
-            /* Add to basket */
-          }}
+          onClick={() => store.dispatch(add(product))}
+
+
           style={{
-            width: `${100 / products.length}%`
+            width: `${100 / products.length}%`,
+            borderRadius: 5 + "px"
           }}
         >
           <span
@@ -110,6 +131,7 @@ const Product = () => {
           <span className={classes.imageBackdrop} />
           <span className={classes.imageButton}>
             <Typography
+
               component="span"
               variant="subtitle1"
               color="inherit"
@@ -120,7 +142,10 @@ const Product = () => {
             </Typography>
           </span>
         </ButtonBase>
+        
       ))}
+
+
     </div>
   )
 }

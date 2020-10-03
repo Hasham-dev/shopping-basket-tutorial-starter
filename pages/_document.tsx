@@ -24,7 +24,7 @@ class MyDocument extends Document {
             {`
               html,
               body {
-                height: 100%;
+                height: 100vh;
                 width: 100%;
               }
               *,
@@ -37,11 +37,16 @@ class MyDocument extends Document {
                 font-size: 1rem;
                 margin: 0;
               }
+            
+              html,body{
+                margin: 0;
+                padding:0;
+              }
             `}
           </style>
         </Head>
-        <body>
-          <Main />
+        <body className="main" >
+          <Main  />
           <NextScript />
         </body>
       </Html>
